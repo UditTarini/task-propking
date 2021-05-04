@@ -1,18 +1,18 @@
 import React from "react";
-import "./Components.css"
+import "./Components.css";
 
 const PropCard = () => {
   return (
     <div className="prop_card ">
       <div className="card-body">
-        <h5 className="card-title">Card title</h5>
-        <p className="card-text">
-          Some quick example text to build on the card title and make up the
-          bulk of the card's content.
-        </p>
-        <a href="#" className="btn btn-primary">
+        <h5 className="prop_card_title"> Pranathi Panorama</h5>
+        <h5 className="prop_card_info"><i class="fa fa-map-marker me-1" aria-hidden="true"></i> Narsingi, Hyderabad, India</h5>
+        <h5 className="prop_card_info"> 1000 - 2000 sft</h5>
+
+
+        {/* <a href="#" className="btn btn-primary">
           Go somewhere
-        </a>
+        </a> */}
       </div>
     </div>
   );

@@ -4,14 +4,38 @@
   margin: 18px 10px;
   border-radius: 10px;
   background: #fafafa;
+  cursor: pointer;
+  transition: all .2s ease-in-out;
   box-shadow:  5px 5px 14px #b3b3b3,
                -5px -5px 14px #ffffff;
 }
 
+.prop_card:hover { transform: scale(1.04); }
+
+.prop_card_title{
+    font-size: 1.1rem;
+    color: #1b1b1b;
+}
+.prop_card_info{
+    margin-top: 0.7rem;
+    font-size: 0.9rem;
+    color: #575757;
+ 
+}
 @media all and (max-width: 750px) {
   .prop_card {
     width: 46%;
     margin: 10px 5px;
   }
+  
+}
+@media all and (max-width: 510px) {
+    .prop_card_title{
+        font-size: 0.9rem;
+    }
+    .prop_card_info{
+        font-size: 0.7rem;
+    }
+
 }
 

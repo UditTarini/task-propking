@@ -3,7 +3,7 @@ import PropCard from '../Components/PropCard'
 import "./Home.css";
 const Home = () => {
     return (
-        <div className="home my-5 d-flex  justify-content-around flex-wrap">
+        <div className="my-5 d-flex  justify-content-around flex-wrap" >
  
           <PropCard/>
           <PropCard/>

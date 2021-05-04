@@ -4,7 +4,6 @@ var jwt = require("jsonwebtoken");
 var expressJwt = require("express-jwt");
 const {validationResult} = require("express-validator");
 
-
 exports.register = (req, res) => {
   const errors = validationResult(req);
   // checking for errors
@@ -21,7 +20,7 @@ exports.register = (req, res) => {
       return res.status(400).json({
         error:
           err.code === 11000
-            ? "Usename already taken"
+            ? "Username already taken"
             : "NOT able to save user in DB",
       });
     }
@@ -107,16 +106,11 @@ exports.isAuthenticated = (req, res, next) => {
   next();
 };
 
-
-
-
-
-
 // FOR LAND
 exports.createLand = (req, res) => {
   const land = new Land(req.body);
-  land.save((err, land)=>{
-    if(err){
+  land.save((err, land) => {
+    if (err) {
       return res.status(400).json({
         error:
           err.code === 11000
@@ -128,17 +122,15 @@ exports.createLand = (req, res) => {
       name: land.name,
       id: land._id,
     });
-  })
-
+  });
 };
 
-exports.loadLand = (req, res) => {
-  const data = await Ticket.find({});
+exports.loadLand = async (req, res) => {
+  const data = await Land.find({});
   res.json(data);
 };
 
-
-exports.updateLand = (req, res) => {
+exports.updateLand = async (req, res) => {
   const result = await User.findOneAndUpdate(
     {
       _id: req.land._id,
@@ -149,9 +141,6 @@ exports.updateLand = (req, res) => {
     {multi: true}
   );
   if (result) {
-
-    return res
-      .status(200)
-      .json({message: "Land Updated Sucessfully", result});
+    return res.status(200).json({message: "Land Updated Sucessfully", result});
   } else return res.status(400).json({message: "Failed Updating Land"});
 };

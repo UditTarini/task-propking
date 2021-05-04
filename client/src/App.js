@@ -7,19 +7,15 @@ import Home from "./Home/Home";
 
 const App = () => {
   return (
-    <>
+    <Router>
       <Navabr />
-      <div className=" d-flex justify-content-center mx-4 ">
-      <Router >
+      <div className="home d-flex justify-content-center align-items-center   mx-4  ">
         <Switch>
           <Route path="/" exact component={Home} />
           <Route path="/login" exact component={Login} />
-     
         </Switch>
-      </Router>
       </div>
-  
-    </>
+    </Router>
   );
 };
 

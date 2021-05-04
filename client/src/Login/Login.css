@@ -1,0 +1,28 @@
+.login_container {
+  display: flex;
+  flex-direction: column;
+  background: #fafafa;
+  padding: 50px;
+  width: 50%;
+  margin-top: 100px;
+  box-shadow: 5px 5px 14px #b3b3b3, -5px -5px 14px #ffffff;
+}
+
+.login_container input {
+  height: 35px;
+  border: 1px solid rgb(175, 175, 175);
+  margin: 10px 0;
+  padding: 0 7px;
+}
+
+.login_container button{
+    margin-top: 20px;
+}
+
+@media all and (max-width: 750px) {
+    .login_container {
+        width: 90%;
+        padding: 20px;
+    }
+
+  }

@@ -30,11 +30,11 @@ var user_schema = new Schema(
     country: {
       type: String,
       trim: true,
-    }
+    },
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("User", user_schema);
+module.exports = mongoose.model("Land", user_schema);

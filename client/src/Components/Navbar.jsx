@@ -1,12 +1,13 @@
 import React from "react";
+import {Link, NavLink, useHistory} from "react-router-dom";
 
 const Navabr = () => {
   return (
     <nav className="navbar navbar-expand-lg  navbar-dark bg-dark">
-      <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+      <div className="container-fluid d-flex justify-content-between">
+        <NavLink className="navbar-brand" to="/">
           Property Glance{" "}
-        </a>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -19,26 +20,23 @@ const Navabr = () => {
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+          
+          
             <li className="nav-item">
-              <a className="nav-link active" aria-current="page" href="#">
-                Home
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link " aria-current="page" href="#">
-                Login
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link " aria-current="page" href="#">
+              <NavLink className="nav-link" to="/create">
                 Create
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
-              <a className="nav-link " aria-current="page" href="#">
+              <NavLink className="nav-link" to="/update">
                 Update
-              </a>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login">
+                Login
+              </NavLink>
             </li>
           </ul>
         </div>

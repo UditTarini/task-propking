@@ -1,0 +1,17 @@
+.prop_card {
+  border: 1px solid rgb(241, 241, 241);
+  width: 22%;
+  margin: 18px 10px;
+  border-radius: 10px;
+  background: #fafafa;
+  box-shadow:  5px 5px 14px #b3b3b3,
+               -5px -5px 14px #ffffff;
+}
+
+@media all and (max-width: 750px) {
+  .prop_card {
+    width: 46%;
+    margin: 10px 5px;
+  }
+}
+

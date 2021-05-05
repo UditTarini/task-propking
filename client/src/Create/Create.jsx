@@ -1,16 +1,22 @@
 import React, {useState} from "react";
-import {authenticate, login} from "../APIcalls/auth";
+import {isAuthenticated} from "../APIcalls/auth";
+import {createLand} from "../APIcalls/land";
+
 import Base from "../Components/Base";
+
+const {auth_token} = isAuthenticated();
 
 const Create = () => {
   const [values, setValues] = useState({
     name: "",
-    password: "",
+    area: "",
+    city: "",
+    state: "",
+    country: "",
     error: "",
-    didRedirect: false,
   });
 
-  const {name, password, error, didRedirect} = values;
+  const {name, area, city, state, country, error} = values;
 
   const handleOnChange = (field) => (event) => {
     setValues({...values, error: false, [field]: event.target.value});
@@ -19,18 +25,20 @@ const Create = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({...values, error: false, loading: true});
-    login({name, password})
+    createLand({name, area, city, state, country}, auth_token)
       .then((data) => {
         if (data.error) {
           setValues({...values, error: data.error});
         } else {
-          authenticate(data, () => {
-            setValues({
-              ...values,
-              loading: false,
-              didRedirect: true,
-            });
+          setValues({
+            ...values,
+            name: "",
+            area: "",
+            city: "",
+            state: "",
+            country: "",
           });
+          alert("created");
         }
       })
       .catch(console.log("error in signin"));
@@ -48,26 +56,26 @@ const Create = () => {
         <input
           type="test"
           placeholder="Area"
-          value={password}
-          onChange={handleOnChange("password")}
+          value={area}
+          onChange={handleOnChange("area")}
         />
         <input
           type="City"
           placeholder="City"
-          value={password}
-          onChange={handleOnChange("password")}
+          value={city}
+          onChange={handleOnChange("city")}
         />
         <input
           type="State"
           placeholder="State"
-          value={password}
-          onChange={handleOnChange("password")}
+          value={state}
+          onChange={handleOnChange("state")}
         />
         <input
           type="Country"
           placeholder="Country"
-          value={password}
-          onChange={handleOnChange("password")}
+          value={country}
+          onChange={handleOnChange("country")}
         />
         <button type="button" class="btn btn-dark" onClick={onSubmit}>
           Create

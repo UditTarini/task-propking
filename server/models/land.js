@@ -14,7 +14,7 @@ var user_schema = new Schema(
       unique: true,
     },
     area: {
-      type: Number,
+      type: String,
       required: true,
       maxlength: 40,
       trim: true,

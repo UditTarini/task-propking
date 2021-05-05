@@ -16,11 +16,13 @@ exports.register = (req, res) => {
 
   const user = new User(req.body);
   user.save((err, user) => {
+
     if (err) {
+    
       return res.status(400).json({
         error:
           err.code === 11000
-            ? "Username already taken"
+            ? "Name already exist"
             : "NOT able to save user in DB",
       });
     }
@@ -97,7 +99,8 @@ exports.isSignedIn = expressJwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  let checker = req.profile && req.auth && req.profile._id == req.auth._id;
+  console.log(req.auth);
+  let checker =  req.auth
   if (!checker) {
     return res.status(403).json({
       error: "Access denied",
@@ -112,6 +115,7 @@ exports.createLand = (req, res) => {
   const land = new Land(req.body);
   land.save((err, land) => {
     if (err) {
+      console.log(err);
       return res.status(400).json({
         error:
           err.code === 11000
@@ -119,6 +123,7 @@ exports.createLand = (req, res) => {
             : "NOT able to save user in DB",
       });
     }
+    console.log("LAND",land);
     res.json({
       name: land.name,
       id: land._id,

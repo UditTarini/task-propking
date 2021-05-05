@@ -36,15 +36,7 @@ router.post(
   register
 );
 
-router.post("/login",  [
-  // validation
-  check("email").isEmail().withMessage("not valid"),
-  check("password")
-    .isLength({
-      min: 8,
-    })
-    .withMessage("field is required"),
-], login);
+router.post("/login", login);
 
 router.get("/signout", signout);
 

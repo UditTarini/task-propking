@@ -34,7 +34,7 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
   const {name, password} = req.body;
-
+  console.log(name, password);
   User.findOne(
     {
       name,
@@ -52,6 +52,7 @@ exports.login = (req, res) => {
       }
 
       if (!user.authenticate(password)) {
+        console.log("heyy");
         return res.status(401).json({
           error: "User and password do not match",
         });

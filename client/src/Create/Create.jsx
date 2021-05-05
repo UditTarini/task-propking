@@ -4,9 +4,9 @@ import {createLand} from "../APIcalls/land";
 
 import Base from "../Components/Base";
 
-const {auth_token} = isAuthenticated();
-
 const Create = () => {
+  const {auth_token} = isAuthenticated();
+
   const [values, setValues] = useState({
     name: "",
     area: "",

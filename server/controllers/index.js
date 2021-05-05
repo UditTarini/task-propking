@@ -97,7 +97,7 @@ exports.isSignedIn = expressJwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  
+  console.log(req.auth);
   let checker = req.auth;
   if (!checker) {
     return res.status(403).json({

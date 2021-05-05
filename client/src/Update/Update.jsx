@@ -4,11 +4,11 @@ import {updateLand, loadLandInfo} from "../APIcalls/land";
 import Base from "../Components/Base";
 import {useHistory, useLocation} from "react-router-dom";
 
-const {auth_token} = isAuthenticated();
-
 const Update = () => {
   const location = useLocation();
   const history = useHistory();
+  const {auth_token} = isAuthenticated();
+
   const [values, setValues] = useState({
     name: "",
     area: "",
@@ -46,7 +46,11 @@ const Update = () => {
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({...values, error: false, loading: true});
-    updateLand({name, area, city, state, country}, auth_token, location.state.id)
+    updateLand(
+      {name, area, city, state, country},
+      auth_token,
+      location.state.id
+    )
       .then((data) => {
         if (data.error) {
           setValues({...values, error: data.error});

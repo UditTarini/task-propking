@@ -16,9 +16,7 @@ exports.register = (req, res) => {
 
   const user = new User(req.body);
   user.save((err, user) => {
-
     if (err) {
-    
       return res.status(400).json({
         error:
           err.code === 11000
@@ -100,7 +98,7 @@ exports.isSignedIn = expressJwt({
 
 exports.isAuthenticated = (req, res, next) => {
   console.log(req.auth);
-  let checker =  req.auth
+  let checker = req.auth;
   if (!checker) {
     return res.status(403).json({
       error: "Access denied",
@@ -123,7 +121,7 @@ exports.createLand = (req, res) => {
             : "NOT able to save user in DB",
       });
     }
-    console.log("LAND",land);
+    console.log("LAND", land);
     res.json({
       name: land.name,
       id: land._id,
@@ -132,7 +130,12 @@ exports.createLand = (req, res) => {
 };
 
 exports.loadLand = async (req, res) => {
-  const data = await Land.find({});
+  let data;
+  try {
+    data = await Land.find({});
+  } catch (error) {
+    data = {error: "Can't get lands"};
+  }
   res.json(data);
 };
 

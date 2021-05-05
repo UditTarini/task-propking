@@ -2,6 +2,7 @@
 .prop_card {
   border: 1px solid rgb(241, 241, 241);
   width: 22%;
+  min-width: 200px;
   margin: 18px 10px;
   border-radius: 10px;
   background: #fafafa;
@@ -23,9 +24,22 @@
   font-size: 0.9rem;
   color: #575757;
 }
+.update_btn{
+  margin-top: 20px;
+  width: 100%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-in-out;
 
+}
+.update_btn:hover {
+  transform: scale(1.04);
+}
 @media all and (max-width: 750px) {
   .prop_card {
+    min-width: 100px;
     width: 46%;
     margin: 10px 5px;
   }

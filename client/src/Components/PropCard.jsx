@@ -1,13 +1,30 @@
 import React from "react";
-import { useHistory } from "react-router";
+import {useHistory} from "react-router";
 import {isAuthenticated} from "../APIcalls/auth";
+import { deleteLand } from "../APIcalls/land";
 import "./Components.css";
-const PropCard = ({landData}) => {
 
-  const history = useHistory()
-  const onUpdate = () => {
-    history.push("/update");
+const PropCard = ({landData,setDelete}) => {
+  const history = useHistory();
+  const {auth_token} = isAuthenticated()
+  const onUpdate = (landId) => {
+    history.push({
+      pathname: "/update",
+      state: {
+        id: landId,
+      },
+    });
   };
+
+  const onDelete = (landId) => {
+    deleteLand(landId, auth_token).then((data) => {
+      if (data.error) {
+        alert(data.error);
+      } else {
+          setDelete(true)
+      }
+    });
+  }
   return (
     <div className="prop_card ">
       <div className="card-body">
@@ -18,13 +35,16 @@ const PropCard = ({landData}) => {
         </h5>
         <h5 className="prop_card_info"> {landData.area} sft</h5>
         {isAuthenticated() && (
-          <button
-            type="button"
-            class="btn btn-dark update_btn"
-            onClick={onUpdate}
-          >
-            Update
-          </button>
+          <div className="d-flex justify-content-between align-items-center mt-3">
+            <button
+              type="button"
+              class="btn btn-dark update_btn"
+              onClick={() => onUpdate(landData._id)}
+            >
+              Update
+            </button>
+            <i class="fas fa-trash-alt text-danger"  onClick={() => onDelete(landData._id)} ></i>
+          </div>
         )}
       </div>
     </div>

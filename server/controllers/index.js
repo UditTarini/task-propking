@@ -34,7 +34,7 @@ exports.register = (req, res) => {
 
 exports.login = (req, res) => {
   const {name, password} = req.body;
-  console.log(name, password);
+
   User.findOne(
     {
       name,
@@ -52,7 +52,7 @@ exports.login = (req, res) => {
       }
 
       if (!user.authenticate(password)) {
-        console.log("heyy");
+        
         return res.status(401).json({
           error: "User and password do not match",
         });
@@ -97,7 +97,7 @@ exports.isSignedIn = expressJwt({
 });
 
 exports.isAuthenticated = (req, res, next) => {
-  console.log(req.auth);
+  
   let checker = req.auth;
   if (!checker) {
     return res.status(403).json({
@@ -113,7 +113,7 @@ exports.createLand = (req, res) => {
   const land = new Land(req.body);
   land.save((err, land) => {
     if (err) {
-      console.log(err);
+    
       return res.status(400).json({
         error:
           err.code === 11000
@@ -121,7 +121,7 @@ exports.createLand = (req, res) => {
             : "NOT able to save user in DB",
       });
     }
-    console.log("LAND", land);
+
     res.json({
       name: land.name,
       id: land._id,
@@ -139,10 +139,23 @@ exports.loadLand = async (req, res) => {
   res.json(data);
 };
 
+exports.loadALand = async (req, res) => {
+  const landID = req.params.landid;
+
+  let data;
+  try {
+    data = await Land.findOne({_id: landID});
+  } catch (error) {
+    data = {error: "Can't get land info"};
+  }
+  res.json(data);
+};
+
 exports.updateLand = async (req, res) => {
-  const result = await User.findOneAndUpdate(
+  console.log(req.body);
+  const result = await Land.findOneAndUpdate(
     {
-      _id: req.land._id,
+      _id: req.params.landid,
     },
     {
       $set: req.body,
@@ -152,4 +165,20 @@ exports.updateLand = async (req, res) => {
   if (result) {
     return res.status(200).json({message: "Land Updated Sucessfully", result});
   } else return res.status(400).json({message: "Failed Updating Land"});
+};
+
+
+exports.deleteLand = (req, res) => {
+  const landid = req.params.landid;
+
+  Land.findByIdAndDelete(landid, (err, land) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Can't delete",
+      });
+    }
+    return res.json({
+      msg: "Deleted succesfully",
+    });
+  });
 };

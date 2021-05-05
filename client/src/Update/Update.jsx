@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {isAuthenticated} from "../APIcalls/auth";
-import {createLand} from "../APIcalls/land";
+import {updateLand, loadLandInfo} from "../APIcalls/land";
 import Base from "../Components/Base";
+import {useHistory, useLocation} from "react-router-dom";
 
 const {auth_token} = isAuthenticated();
 
 const Update = () => {
+  const location = useLocation();
+  const history = useHistory();
   const [values, setValues] = useState({
     name: "",
     area: "",
@@ -13,18 +16,37 @@ const Update = () => {
     state: "",
     country: "",
     error: "",
+    loading: false,
   });
 
-  const {name, area, city, state, country, error} = values;
+  useEffect(() => {
+    preFetch();
+  }, []);
+
+  const {name, area, city, state, country, error, loading} = values;
 
   const handleOnChange = (field) => (event) => {
-    setValues({...values, error: false, [field]: event.target.value});
+    setValues({...values, error: "", [field]: event.target.value});
+  };
+
+  const preFetch = () => {
+    loadLandInfo(location.state.id).then((data) => {
+      console.log(data);
+      setValues({
+        ...values,
+        name: data.name,
+        area: data.area,
+        city: data.city,
+        state: data.state,
+        country: data.country,
+      });
+    });
   };
 
   const onSubmit = (event) => {
     event.preventDefault();
     setValues({...values, error: false, loading: true});
-    createLand({name, area, city, state, country}, auth_token)
+    updateLand({name, area, city, state, country}, auth_token, location.state.id)
       .then((data) => {
         if (data.error) {
           setValues({...values, error: data.error});
@@ -37,15 +59,17 @@ const Update = () => {
             state: "",
             country: "",
           });
-          alert("created");
+          alert("updated");
+          history.push("/");
         }
       })
-      .catch(console.log("error in signin"));
+      .catch(console.log("error in update"));
   };
   return (
     <Base>
       <div className="login_container">
         <p className="text-danger">{error}</p>
+        <p>Land ID - {location.state.id}</p>
         <input
           type="text"
           placeholder="Name"
@@ -77,7 +101,7 @@ const Update = () => {
           onChange={handleOnChange("country")}
         />
         <button type="button" class="btn btn-dark" onClick={onSubmit}>
-        Update
+          Update
         </button>
       </div>
     </Base>

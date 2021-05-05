@@ -8,13 +8,16 @@ var {
   signout,
   createLand,
   loadLand,
+  loadALand,
   updateLand,
+  deleteLand
 } = require("../controllers");
 const {check} = require("express-validator");
 const User = require("../models/user");
 const Land = require("../models/land");
 
 // ......... routes .........
+
 // FOR USER
 router.post(
   "/register",
@@ -40,13 +43,12 @@ router.post("/login", login);
 
 router.get("/signout", signout);
 
-
 // FOR LAND
-router.post("/land/create",isSignedIn,isAuthenticated, createLand);
+router.post("/land/create", isSignedIn, isAuthenticated, createLand);
 
 router.get("/land/all", loadLand);
-
-
-router.put("/land/:landId",isSignedIn,isAuthenticated, updateLand);
+router.get("/land/info/:landid", loadALand);
+router.put("/land/update/:landid", isSignedIn, isAuthenticated, updateLand);
+router.delete("/land/delete/:landid", isSignedIn, isAuthenticated, deleteLand);
 
 module.exports = router;
